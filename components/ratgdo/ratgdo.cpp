@@ -369,7 +369,8 @@ namespace ratgdo {
                 this->obstruction_sensor_detected_ = true;
             } else if (this->isr_store_.obstruction_low_count == 0) {
                 // if there have been no pulses the line is steady high or low
-                if (!this->input_obst_pin_->digital_read()) {
+                // NOTE this logic is flipped from standard ratgdo due to optoisolator HW
+                if (this->input_obst_pin_->digital_read()) {
                     // asleep
                     last_asleep = current_millis;
                 } else {
